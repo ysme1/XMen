@@ -8,7 +8,7 @@ EasyXMen是面向嵌入式电子控制单元场景的实时安全操作系统，
 采用架构模块化设计思路，便于软件的升级和维护
 
 ## 代码地址
-https://atomgit.com/puhua/EasyXMen
+https://atomgit.com/easyxmen/XMen
 
 ## 目录结构
 ```

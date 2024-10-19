@@ -1,37 +1,86 @@
-OUTPUT_ARCH( "riscv" )
-
+OUTPUT_ARCH(riscv)
 ENTRY(_start)
-
-ROM_BASE = 0x0;
-ROM_SIZE = 0x0;
-
-RAM_BASE = 0x0;
-RAM_SIZE = 0x0;
-
-MEMORY
-{
-  rom   (rxa!w)  : ORIGIN = ROM_BASE, LENGTH = ROM_SIZE
-  ram   (wxa!r)  : ORIGIN = RAM_BASE, LENGTH = RAM_SIZE
-}
 
 SECTIONS
 {
-	.text : {
+	. = 0x60200000;
+
+	PROVIDE(_fw_start = .);
+
+	. = ALIGN(0x1000); /* Need this to create proper sections */
+
+	/* Beginning of the code section */
+
+	.text :
+ 	{
 		PROVIDE(_text_start = .);
-		*(.text .text.*)
+		*(.entry)
+		*(.text)
+		. = ALIGN(8);
 		PROVIDE(_text_end = .);
-	} >rom
+	}
 
-  .data : {
+	. = ALIGN(0x1000); /* Ensure next section is page aligned */
+
+	/* End of the code sections */
+
+	/* Beginning of the read-only data sections */
+
+	. = ALIGN(0x1000); /* Ensure next section is page aligned */
+
+	.rodata :
+	{
+		PROVIDE(_rodata_start = .);
+		*(.rodata .rodata.*)
+		. = ALIGN(8);
+		PROVIDE(_rodata_end = .);
+	}
+
+	/* End of the read-only data sections */
+
+	/* Beginning of the read-write data sections */
+
+	. = ALIGN(0x1000); /* Ensure next section is page aligned */
+
+	.data :
+	{
 		PROVIDE(_data_start = .);
-		*(.data .data.*)
+
+		*(.data)
+		*(.data.*)
+		*(.readmostly.data)
+		*(*.data)
+		. = ALIGN(8);
+
 		PROVIDE(_data_end = .);
-	} >ram
+	}
 
-  .bss :{
+	. = ALIGN(0x1000); /* Ensure next section is page aligned */
+
+	.stack :
+	{
+		PROVIDE(_stack_start = .);
+		*(.stack)
+		*(.stack.*)
+		. = . + (0x1000);
+		. = ALIGN(8);
+		PROVIDE(_stack_end = .);
+	}
+
+	. = ALIGN(0x1000); /* Ensure next section is page aligned */
+
+	.bss :
+	{
 		PROVIDE(_bss_start = .);
-		*(.bss .bss.*)
+		*(.bss)
+		*(.bss.*)
+		. = ALIGN(8);
 		PROVIDE(_bss_end = .);
-	} >ram
-}
+	}
 
+	/* End of the read-write data sections */
+
+	. = ALIGN(0x1000); /* Need this to create proper sections */
+
+	PROVIDE(_fw_end = .);
+}

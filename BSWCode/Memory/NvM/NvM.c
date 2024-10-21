@@ -124,7 +124,6 @@
 /*====================[I N C L U D E S]====================*/
 #include "MemIf.h" /* req NVM077 */
 #include "NvM_Inter.h"
-#include "SchM_NvM.h"
 #if (STD_ON == NVM_DEM_PRODUCTION_ERROR_DETECT)
 #include "Dem.h" /* req NVM077 */
 #endif

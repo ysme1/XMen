@@ -310,7 +310,7 @@ VAR(uint16, NVM_VAR) NvM_QueueSpaceTalbe[NVM_TABLE_SIZE_JOB_QUEUE];
 #define NVM_START_SEC_VAR_CLEARED_8
 #include "NvM_MemMap.h"
 static VAR(uint8, NVM_VAR_NOINIT) NvM_NvDataBuffer[NVM_MAX_LENGTH_NV_BLOCK + NVM_NV_CRC_MAX_LENGTH];
-static VAR(uint8, NVM_VAR_NOINIT) NVM_TemporaryRAMForRepaire[NVM_MAX_LENGTH_REDUNDANT_BLOCK];
+static VAR(uint8, NVM_VAR_NOINIT) NVM_TemporaryRAMForRepaire[NVM_REDUNDANT_ALL][NVM_MAX_LENGTH_REDUNDANT_BLOCK];
 #define NVM_STOP_SEC_VAR_CLEARED_8
 #include "NvM_MemMap.h"
 
@@ -1912,7 +1912,7 @@ static FUNC(void, NVM_CODE) NvM_GetRamAddress(uint8 QueueIndex)
         if (((uint8)STD_ON == Repair) && (NVM_WRITE_ALL_SERV_ID == NvM_CurRunning.ServiceId))
         {
             NvM_SetWordBitState(&NvM_AdminBlock[CurBlockId].FlagGroup, NVM_ADMIN_RAM_VALID_CHANGE_STATUS_USED, STD_OFF);
-            NvM_CurRunning.RamAddr = NVM_TemporaryRAMForRepaire;
+            NvM_CurRunning.RamAddr = &NVM_TemporaryRAMForRepaire[NvM_BlockDescriptor[CurBlockId].RepaireIndex][0];
             /*The other routing for the config ID*/
         }
         else
@@ -2052,10 +2052,14 @@ static FUNC(void, NVM_CODE) NvM_JobOverSetFlag(NvM_RequestResultType SingleReqRe
     /*. CallBack function for BlockID*/
     if (NULL_PTR != NvM_CurRunning.SingleCallback)
     {
-        NvM_BlockRequestType BlockRequest = NVM_READ_BLOCK;
+        NvM_BlockRequestType BlockRequest;
         boolean NotiFlag = TRUE;
         switch (NvM_CurRunning.ServiceId)
         {
+        case NVM_READ_BLOCK_SERV_ID:
+        case NVM_READ_PRAM_BLOCK_SERV_ID:
+            BlockRequest = NVM_READ_BLOCK;
+            break;
         case NVM_WRITE_BLOCK_SERV_ID:
         case NVM_WRITE_PRAM_BLOCK_SERV_ID:
             BlockRequest = NVM_WRITE_BLOCK;
@@ -4095,10 +4099,11 @@ static FUNC(void, NVM_CODE) NvM_RepireDataSave(P2CONST(uint8, TYPEDEF, NVM_APPL_
 /* PRQA S 0709-- */ /* MISRA Rule 1.1 */
 {
     uint16 l_LengthLoop;
+    uint8* l_Dest = &NVM_TemporaryRAMForRepaire[NvM_BlockDescriptor[NvM_CurRunning.BlockId - 1U].RepaireIndex][0];
 
     for (l_LengthLoop = 0; l_LengthLoop < Length; l_LengthLoop++)
     {
-        NVM_TemporaryRAMForRepaire[l_LengthLoop] = DataSourceAddress[l_LengthLoop];
+        l_Dest[l_LengthLoop] = DataSourceAddress[l_LengthLoop];
     }
 }
 

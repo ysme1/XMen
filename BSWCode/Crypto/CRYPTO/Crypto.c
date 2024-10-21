@@ -43,6 +43,7 @@
  *  V2.2        20210601    qinchun.yang    Modify asynchronous task processing logic.
  *  V2.1.0      2023-07-17   jie.gu         CP2.1 Release Version
  *  V2.1.1      2024-06-24   jie.gu         Replace tlsf library with ilib .
+ *  V2.1.2      2024-10-14   jie.gu         CPT-10777.return value not assigned before  used.
  */
 
 /* PRQA S 3432 ++ */                /* MISRA Rule 20.7 */

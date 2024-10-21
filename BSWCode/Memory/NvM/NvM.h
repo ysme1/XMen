@@ -72,7 +72,9 @@
  *              2024-07-10  peng.wu     Fix exclusive zone protection
  *              2024-08-13  peng.wu     Append QAC remarks and remove main function declarations from header files
  *              2024-08-14  tao.yu      implementation deal NvMBlockUseSetRamBlockStatus is off
- *             2024-09-27   xue.han     QAC
+ *              2024-09-27  xue.han     QAC
+ *              2024-10-14  tao.yu      CPT-10775, fix call SingleCallback when read
+ *                                      CPT-10763, fix Repaire redundant block
 ============================================================================*/
 
 /*===================[V E R S I O N  I N F O R M A T I O N]===================*/

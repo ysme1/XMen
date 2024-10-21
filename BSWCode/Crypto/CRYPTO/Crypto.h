@@ -53,7 +53,7 @@
 #define CRYPTO_AR_RELEASE_REVISION_VERSION 3
 #define CRYPTO_SW_MAJOR_VERSION            2
 #define CRYPTO_SW_MINOR_VERSION            1
-#define CRYPTO_SW_PATCH_VERSION            1
+#define CRYPTO_SW_PATCH_VERSION            2
 #define CRYPTO_PRODUCT_ID                  51
 #define CRYPTO_MODULE_ID                   114
 #define CRYPTO_MODULE_INSTANCE_ID          ((uint8)0)

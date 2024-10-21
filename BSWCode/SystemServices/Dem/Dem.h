@@ -128,6 +128,7 @@
  *               2024-08-06  peng.wu        CPT-10180, Fix multiple fetch of FreezeFrame data
  *               2024-08-23  xue.han        CPT-10127, add DTCAttributeCfg NULL_PTR check
  *               2024-09-27  xue.han        QAC
+ *  V2.0.24      2024-10-14  xue.han        CPT-10684,Fix reading error when 1903 is requested
  *******************************************************************************/
 /*******************************************************************************
 **                      Include Section                                       **
@@ -150,7 +151,7 @@
 #define DEM_AR_RELEASE_PATCH_VERSION 2U
 #define DEM_SW_MAJOR_VERSION         2U
 #define DEM_SW_MINOR_VERSION         0U
-#define DEM_SW_PATCH_VERSION         23U
+#define DEM_SW_PATCH_VERSION         24U
 
 #if (STD_ON == DEM_DEV_ERROR_DETECT)
 #define DEM_DET_REPORT(ApiId, ErrorId) (void)Det_ReportError(DEM_MODULE_ID, DEM_INSTANCE_ID, (ApiId), (ErrorId))

@@ -126,6 +126,7 @@
  *              2024-09-12   xue.han      fix Dcm_UDS0x2A_DDDidStop,UDS0x28 NRC31
  *              2024-09-27   xue.han      QAC
  *                           peng.wu      CPT-9403, fix DemFreezeFrameRecordNumber range
+ * V2.0.27      2024-10-14   xue.han      CPT-10773,add NRC process if channel is NULL
 ============================================================================*/
 
 /*=======[V E R S I O N  I N F O R M A T I O N]===============================*/
@@ -134,7 +135,7 @@
 #define DCM_AR_RELEASE_PATCH_VERSION (0x02u)
 #define DCM_SW_MAJOR_VERSION         (0x02u) /*Major Version*/
 #define DCM_SW_MINOR_VERSION         (0x00u) /*Minor Version*/
-#define DCM_SW_PATCH_VERSION         (0x1Au) /*Patch version*/
+#define DCM_SW_PATCH_VERSION         (0x1Bu) /*Patch version*/
 
 /*******************************************************************************
 **                      Include Section                                       **

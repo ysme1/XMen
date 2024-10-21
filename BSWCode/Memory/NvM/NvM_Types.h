@@ -468,6 +468,7 @@ typedef struct
 {
     uint8 NvmNvramDeviceId;
     NvM_BlockManagementType NvmBlockManagementType;
+    NvM_BlockIdType RepaireIndex;
 #if ((NVM_API_CONFIG_CLASS_1 != NVM_API_CONFIG_CLASS) && (STD_ON == NVM_JOB_PRIORITIZATION))
     uint8 NvmBlockJobPriority;
 #endif

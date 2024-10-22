@@ -880,13 +880,13 @@ Crypto_AESDecryptCTR(P2VAR(uint8, AUTOMATIC, CRY_APPL_DATA) key, uint8 buf[64], 
     Std_ReturnType ret;
     uint8 j;
     (void)ILib_memset(&ctx, 0u, sizeof(Crypto_AESData));
+
+    ret = Crypto_aes_setkey_dec(&ctx, key, 128);
+
     if (E_OK == ret)
     {
-        ret = Crypto_aes_setkey_dec(&ctx, key, 128);
+        ret = internal_aes_encrypt(&ctx, iv, iv);
     }
-
-    ret = internal_aes_encrypt(&ctx, iv, iv);
-
     for (j = 0; j < 16; j++)
     {
         buf[j] = buf[j] ^ iv[j];

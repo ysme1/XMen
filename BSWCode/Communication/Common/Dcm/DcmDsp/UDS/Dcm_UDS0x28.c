@@ -340,22 +340,14 @@ FUNC(void, DCM_CODE) DspInternalUDS0x28_CheckNewSes(Dcm_SesCtrlType NewSes) /* P
 /*************************************************************************/
 #define DCM_START_SEC_CODE
 #include "Dcm_MemMap.h"
-static FUNC(Std_ReturnType, DCM_CODE) DspInternalUDS0x28_0x00_0x03_SubFuction(
-    uint8 ProtocolCtrlId,
-    uint8 subFunc,
-    uint8 comType,
-    uint16 subnet
-#if (DCM_COMCONTROL_SPECIFICCHANNEL_ENABLED == STD_ON)
-    ,
-    Dcm_NegativeResponseCodeType* ErrorCode
-#endif
-)
+static FUNC(Std_ReturnType, DCM_CODE)
+    DspInternalUDS0x28_0x00_0x03_SubFuction(uint8 ProtocolCtrlId, uint8 subFunc, uint8 comType, uint16 subnet)
 {
     uint8 iloop;
     Dcm_CommunicationModeType RequestedMode;
     const Dcm_DspComControlType* pComControl = Dcm_Cfg.pDcmDspCfg->pDcmDspComControl;
     const Dcm_DslProtocolRowType* pProtocolRow = Dcm_Cfg.pDcmDslCfg->pDcmDslProtocol->pDcmDslProtocolRow;
-    Std_ReturnType ret = E_OK;
+    Std_ReturnType ret = E_NOT_OK;
 
     RequestedMode = DspInternalUDS0x28_0x00_0x03_GetReqMode(subFunc, comType);
     if ((NULL_PTR != Dcm_Cfg.pDcmDspCfg) && (NULL_PTR != Dcm_Cfg.pDcmDspCfg->pDcmDspComControl))
@@ -375,6 +367,7 @@ static FUNC(Std_ReturnType, DCM_CODE) DspInternalUDS0x28_0x00_0x03_SubFuction(
                         pComControl->DcmDspComControlAllChannel[iloop].DcmDspComMChannelId,
                         RequestedMode);
 #endif
+                    ret = E_OK;
                 }
             }
         }
@@ -391,6 +384,7 @@ static FUNC(Std_ReturnType, DCM_CODE) DspInternalUDS0x28_0x00_0x03_SubFuction(
                 pProtocolRow[ProtocolCtrlId].pDcmDslConnection->pDcmDslMainConnection->DcmDslProtocolComMChannelId,
                 RequestedMode);
 #endif
+            ret = E_OK;
         }
 #endif /* DCM_MAINCONNECTION_ENABLED == STD_ON */
 #if (DCM_COMCONTROL_SPECIFICCHANNEL_ENABLED == STD_ON)
@@ -411,11 +405,7 @@ static FUNC(Std_ReturnType, DCM_CODE) DspInternalUDS0x28_0x00_0x03_SubFuction(
                             pComControl->DcmDspComControlSpecificChannel[iloop].DcmDspSpecificComMChannelId,
                             RequestedMode);
 #endif
-                    }
-                    else
-                    {
-                        *ErrorCode = DCM_E_REQUESTOUTOFRANGE;
-                        ret = E_NOT_OK;
+                        ret = E_OK;
                     }
                 }
             }
@@ -633,7 +623,7 @@ static FUNC(Std_ReturnType, DCM_CODE)
                 }
             }
         }
-        if ((Flag == FALSE) && (subFunc > 5u))
+        if ((Flag == FALSE) || (subFunc > 5u))
         {
             /*the required sub-function is not supported,send NRC 0x12*/
             *ErrorCode = DCM_E_SUBFUNCTIONNOTSUPPORTED;
@@ -750,16 +740,12 @@ Dcm_UDS0x28(
     {
         if (subFunc < 0x04u)
         {
-            ret = DspInternalUDS0x28_0x00_0x03_SubFuction(
-                ProtocolCtrlId,
-                subFunc,
-                comType,
-                Subnet
-#if (DCM_COMCONTROL_SPECIFICCHANNEL_ENABLED == STD_ON)
-                ,
-                ErrorCode
-#endif
-            );
+            if (DspInternalUDS0x28_0x00_0x03_SubFuction(ProtocolCtrlId, subFunc, comType, Subnet) == E_NOT_OK)
+            {
+                /*NO DcmDspSubnetNumber Finded ,send NRC 0x31*/
+                *ErrorCode = DCM_E_REQUESTOUTOFRANGE;
+                ret = E_NOT_OK;
+            }
         }
 #if (STD_ON == DCM_UDS0X28_0x04_0x05_ENABLED)
         else if ((subFunc == 0x04u) || (subFunc == 0x05u))

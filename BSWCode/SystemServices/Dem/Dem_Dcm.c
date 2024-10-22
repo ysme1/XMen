@@ -1000,7 +1000,8 @@ Dem_DcmGetNextFilteredRecord(
     {
         Dem_DTCOriginType DTCOrigin = Dem_GetInternalMemDest(DEM_DTC_ORIGIN_PRIMARY_MEMORY);
         const uint8 EntryNum = DemMemDestCfg[DTCOrigin].EntryNum;
-        for (; pFilter->GetNum < pFilter->NumberOfFilteredRecords;)
+        boolean find = FALSE;
+        for (; ((pFilter->GetNum < pFilter->NumberOfFilteredRecords) && (find == FALSE));)
         {
             if (pFilter->EntryIndex >= EntryNum) /*SWS_Dem_00210*/
             {
@@ -1031,7 +1032,7 @@ Dem_DcmGetNextFilteredRecord(
                             Dem_GetEventDTC(DTCRef, pFilter->DTCFormat, DTC);
                             *RecordNumber = pEntry->FFList[pFilter->FFIndex].RecordNum;
                             ret = DEM_FILTERED_OK;
-                            break;
+                            find = TRUE; /* PRQA S 2469 */ /* MISRA Rule 14.2 */
                         }
                         pFilter->GetNum++;
                     }

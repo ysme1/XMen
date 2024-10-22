@@ -109,6 +109,9 @@
 
     \li PRQA S 3219 MISRA Rule 2.1 .<br>
     Reason:Design required.
+
+    \li PRQA S 2469 MISRA Rule 14.2 .<br>
+    Reason:For loop variant is designed to manually be change, design needs.
  */
 
 /*******************************************************************************

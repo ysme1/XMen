@@ -76,7 +76,6 @@ FUNC(void, OS_CODE) OSGetVersionInfo(Std_VersionInfoType* osVerInfoPtr)
     {
         osVerInfoPtr->vendorID = OS_VENDOR_ID;
         osVerInfoPtr->moduleID = OS_MODULE_ID;
-        osVerInfoPtr->instanceID = 0;
         osVerInfoPtr->sw_major_version = OS_CFG_H_SW_MAJOR_VERSION;
         osVerInfoPtr->sw_minor_version = OS_CFG_H_SW_MINOR_VERSION;
         osVerInfoPtr->sw_patch_version = OS_CFG_H_SW_PATCH_VERSION;

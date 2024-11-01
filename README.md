@@ -1,23 +1,24 @@
-## 项目名称
+# 项目名称
 
 EasyXMen是面向嵌入式电子控制单元场景的实时安全操作系统，具有安全性、可靠性、实时性和可移植性等特点。
 
-## 项目特点
+# 项目特点
 
 具有广泛的可扩展性，完善的系统服务和调度机制，可快速适应在多种硬件平台上部署运行
 支持CAN/CANFD、LIN、Ethernet多种总线通信，适用不同通信需求和场景
 提供功能安全机制检测和阻止软件故障，实现系统的功能安全保护
 采用架构模块化设计思路，便于软件的升级和维护
 
-## 代码地址
+# 代码地址
 
 https://atomgit.com/easyxmen/XMen
 
 # 文档地址
 
-https://atomgit.com/easyxmen/docs
+仓库地址：https://atomgit.com/easyxmen/docs
+网页浏览地址：https://easyxmen.atomgit.net/docs/
 
-## 目录结构
+# 目录结构
 
 ```
 ├── BSWCode                 # 模块静态代码
@@ -73,7 +74,27 @@ https://atomgit.com/easyxmen/docs
 
 EasyXMen目前支持NXP S32K148平台
 
-## 开源许可
+
+
+# 开发贡献与指导
+
+## commit
+
+[commit规范](https://atomgit.com/easyxmen/XMen/wiki/Commit规范)
+
+## issue
+
+- 在提交 Issue 之前，请先使用开源EasyXmen项目的搜索功能，查看是否已经有其他人提交了类似的问题。如果已经存在相关的 Issue，可以在该 Issue 下留言
+
+- 提交issue时选择合适的模板
+- 提交 Issue 后，可以关注 Issue 的回复状态，了解问题的处理进度
+- 在 Issue 交流过程中，若议题已经得到解决，或 Issue 并非项目相关问题，请及时关闭
+
+## Pull Request
+
+[PR提交指南](https://atomgit.com/easyxmen/XMen/wiki/PR提交指南)
+
+# 开源许可
 
 EasyXMen项目整体基于LGPL V2.1开源，详见[LICENSE.txt](./LICENSE.txt)，并附有例外，例外详见[EXCEPTION.txt](./EXCEPTION.txt)
 
@@ -81,7 +102,11 @@ EasyXMen项目整体基于LGPL V2.1开源，详见[LICENSE.txt](./LICENSE.txt)�
 
 _EasyXMen提供商业许可是为了给用户提供更加丰富的许可选项，并不代表LGPL V2.1开源许可证禁止商业利用，您完全可以在遵循LGPL V2.1和我们的例外声明的前提下自由地使用本开源项目，具体内容请详见相关许可协议文本_
 
-## 协作者
+# 贡献者
 
-> 高效的协作会激发无尽的创造力，将他们的名字记录在这里吧
-> 普华基础软股份有限公司
+| 用户名               | 邮箱                         | 贡献的描述               |
+| -------------------- | ---------------------------- | ------------------------ |
+| *示例：hongkunzhang* | *hongkunzhang@i-soft.com.cn* | *同步代码，仓库规则制定* |
+|                      |                              |                          |
+|                      |                              |                          |
+
